@@ -46,6 +46,7 @@ int getNearestIndex(CGraph& g, bool* processed) {
     int nearestDist = INF_DIST;
     int nearestIndex = NO_NODE;
     for (int i = 1; i <= g.getNodeCounter(); ++i) {
+        if (processed[i - 1]) continue;
         if (g.getNode(i).distance < nearestDist) {
             nearestDist = g.getNode(i).distance;
             nearestIndex = i;
