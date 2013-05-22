@@ -31,7 +31,7 @@ t_edge& CGraph::getEdge(const int index) const {
 }
 
 void CGraph::setEdge(const int index, const t_edge& edge) {
-	edges[index] = edge;
+	edges[index - 1] = edge;
 }
 
 void CGraph::addEdge(const t_edge& edge) {
@@ -51,7 +51,7 @@ t_node& CGraph::getNode(const int index) const {
 }
 
 void CGraph::setNode(const int index, const t_node& node) {
-    nodes[index] = node;
+    nodes[index - 1] = node;
 }
 
 void CGraph::addNode(const t_node& node) {
