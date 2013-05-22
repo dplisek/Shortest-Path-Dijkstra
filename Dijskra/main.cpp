@@ -34,14 +34,6 @@ void initPaths(CGraph& g, const int startIndex) {
     }
 }
 
-bool* initProcessed(CGraph& g) {
-    bool* processed = new bool[g.getNodeCounter()];
-    for (int i = 0; i < g.getNodeCounter(); ++i) {
-        processed = false;
-    }
-    return processed;
-}
-
 int getNearestIndex(CGraph& g, bool* processed) {
     int nearestDist = INF_DIST;
     int nearestIndex = NO_NODE;
@@ -79,7 +71,10 @@ void relax(CGraph& g, int edgeIndex) {
 
 void Dijskra(CGraph& g, const int startIndex) {
     initPaths(g, startIndex);
-    bool* processed = initProcessed(g);
+    bool* processed = new bool[g.getNodeCounter()];
+    for (int i = 1; i <= g.getNodeCounter(); ++i) {
+        processed[i - 1] = false;
+    }
     int nearestIndex;
     while ((nearestIndex = getNearestIndex(g, processed)) != NO_NODE) {
         processed[nearestIndex - 1] = true;
@@ -93,11 +88,43 @@ void Dijskra(CGraph& g, const int startIndex) {
 }
 
 #ifndef __PROGTEST__
-int main(int argc, const char * argv[])
-{
+int main(int argc, const char * argv[]) {
+    CGraph g;
+    t_node node1;
+    t_node node2;
+    t_node node3;
+    t_node node4;
+    t_node node5;
+    g.addNode(node1);
+    g.addNode(node2);
+    g.addNode(node3);
+    g.addNode(node4);
+    g.addNode(node5);
+    t_edge edge1(1, 2, 10);
+    t_edge edge2(1, 4, 5);
+    t_edge edge3(2, 4, 2);
+    t_edge edge4(2, 3, 1);
+    t_edge edge5(3, 5, 4);
+    t_edge edge6(4, 2, 3);
+    t_edge edge7(4, 3, 9);
+    t_edge edge8(4, 5, 2);
+    t_edge edge9(5, 1, 7);
+    t_edge edge10(5, 3, 6);
+    g.addEdge(edge1);
+    g.addEdge(edge2);
+    g.addEdge(edge3);
+    g.addEdge(edge4);
+    g.addEdge(edge5);
+    g.addEdge(edge6);
+    g.addEdge(edge7);
+    g.addEdge(edge8);
+    g.addEdge(edge9);
+    g.addEdge(edge10);
     
-    // insert code here...
-    std::cout << "Hello, World!\n";
+    Dijskra(g, 1);
+    
+    cout << g << endl;
+    
     return 0;
 }
 #endif
